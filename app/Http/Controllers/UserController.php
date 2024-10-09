@@ -37,10 +37,20 @@ class UserController extends Controller
         $new_user->save();
         return redirect('/users')->with('success','User added successfully');
         }catch(\Exception $e){
-            return redirect('/add/user')->with('error',$e->getMessage());
+            return redirect('/add/user')->with('fail',$e->getMessage());
         }
         //register user here
 
         
+    }
+
+
+    public function deleteUser($id){
+        try{
+            User::where('id',$id)->delete();
+            return redirect('/users')->with('success','User deleted successfully');
+        }catch(\Exception $e){
+            return redirect('/users')->with('fail',$e->getMessage());
+        }
     }
 }
