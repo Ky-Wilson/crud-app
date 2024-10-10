@@ -53,4 +53,30 @@ class UserController extends Controller
             return redirect('/users')->with('fail',$e->getMessage());
         }
     }
+
+
+    public function EditUser(Request $request){
+
+        //form validation here
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+        ]);
+        try{
+            $update_user = User::where('id',$request->user_id)->update([
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number
+            ]);
+            return redirect('/users')->with('success','User updated successfully');
+        }catch(\Exception $e){
+            return redirect('edit/user')->with('fail',$e->getMessage());
+        }
+    }
+
+    public function loadEditForm($id){
+        $user = User::find($id);
+        return view('edit-user', compact('user'));
+    }
 }

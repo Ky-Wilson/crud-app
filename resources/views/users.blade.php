@@ -46,6 +46,10 @@
                                     <td><a href="/delete/{{ $item->id }}" class="btn btn-danger btn-sm">Delete</a></td>
                                 </tr>
                             @endforeach
+                        @else
+                            <tr>
+                                <td colspan="8">No users found</td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>
